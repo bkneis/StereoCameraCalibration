@@ -248,7 +248,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
             // Display the timestamps of the images grabbed for each camera
             TimeStamp timestamp = images[k].GetTimeStamp();
-            cout << "Camera " << i << " - Frame " << j << " - TimeStamp ["
+            cout << "Camera " << k << " - Frame " << j << " - TimeStamp ["
                  << timestamp.cycleSeconds << " " << timestamp.cycleCount << "]"
                  << endl;
 
