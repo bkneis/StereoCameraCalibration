@@ -231,11 +231,6 @@ int main(int /*argc*/, char ** /*argv*/)
                 return -1;
             }
             images[i] = image;
-            // Display the timestamps of the images grabbed for each camera
-            TimeStamp timestamp = image.GetTimeStamp();
-            cout << "Camera " << i << " - Frame " << j << " - TimeStamp ["
-                 << timestamp.cycleSeconds << " " << timestamp.cycleCount << "]"
-                 << endl;
         }
         for (unsigned int k = 0; k < numCameras; k++)
         {
@@ -250,6 +245,12 @@ int main(int /*argc*/, char ** /*argv*/)
                 PrintError(error);
                 return -1;
             }
+
+            // Display the timestamps of the images grabbed for each camera
+            TimeStamp timestamp = images[k].GetTimeStamp();
+            cout << "Camera " << i << " - Frame " << j << " - TimeStamp ["
+                 << timestamp.cycleSeconds << " " << timestamp.cycleCount << "]"
+                 << endl;
 
         }
         sleep(1);
