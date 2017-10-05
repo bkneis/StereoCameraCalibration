@@ -25,6 +25,10 @@
 #include <sstream>
 #include <unistd.h>
 
+#define OUTPUT_FILE_TYPE ".png"
+#define OUTPUT_FILE_PREFIX "Calibration"
+#define OUTPUT_FILE_PATH "data/"
+
 using namespace FlyCapture2;
 using namespace std;
 
@@ -236,7 +240,7 @@ int main(int /*argc*/, char ** /*argv*/)
         for (unsigned int k = 0; k < numCameras; k++)
         {
             ostringstream filename;
-            filename << "data/Calibration" << camInfos[k].serialNumber << "-" << j << k << ".pgm";
+            filename << OUTPUT_FILE_PATH << OUTPUT_FILE_PREFIX << camInfos[k].serialNumber << "-" << j << OUTPUT_FILE_TYPE;
 
             // Save the image. If a file format is not passed in, then the file
             // extension is parsed to attempt to determine the file format.
