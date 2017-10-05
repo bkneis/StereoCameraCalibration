@@ -1,4 +1,5 @@
 .idea/*
 .obj/*
 cmake-build-debug/*
+bin/MultipleCameraEx
 MultipleCameraEx
