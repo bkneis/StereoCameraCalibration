@@ -59,5 +59,6 @@ clean_obj:
 .PHONY: clean
 clean: clean_obj
 	rm -f ${OUTDIR}/${NAME} ${OBJ}
+	rm -f data/*
 	@echo "all cleaned up!"
 
