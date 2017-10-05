@@ -1,7 +1,7 @@
 ################################################################################
 # MultipleCameraEx Makefile.
 ################################################################################
-PROJECT_ROOT=../../
+PROJECT_ROOT=.
 OPT_INC = ${PROJECT_ROOT}/common/make/common.mk
 -include ${OPT_INC}
 # Handle environment variables
