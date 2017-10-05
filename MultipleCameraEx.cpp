@@ -115,6 +115,8 @@ int main(int /*argc*/, char ** /*argv*/)
     // simultaneous streaming would require multiple process or threads,
     // which is too complex for an example.
     //
+    CameraInfo* camInfos = new CameraInfo[numCameras];
+
     for (unsigned int i = 0; i < numCameras; i++)
     {
         PGRGuid guid;
@@ -150,6 +152,7 @@ int main(int /*argc*/, char ** /*argv*/)
             cin.ignore();
             return -1;
         }
+        camInfos[i] = camInfo;
 
         PrintCameraInfo(&camInfo);
 
@@ -231,20 +234,8 @@ int main(int /*argc*/, char ** /*argv*/)
         }
         for (unsigned int k = 0; k < numCameras; k++)
         {
-            // Get the camera information TODO perform this before hand and save to array
-            CameraInfo camInfo;
-            error = pCameras[k].GetCameraInfo(&camInfo);
-            if (error != PGRERROR_OK)
-            {
-                PrintError(error);
-                delete[] pCameras;
-                cout << "Press Enter to exit." << endl;
-                cin.ignore();
-                return -1;
-            }
-
             ostringstream filename;
-            filename << "data/Calibration" << camInfo.serialNumber << "-" << j << k << ".pgm";
+            filename << "data/Calibration" << camInfos[k].serialNumber << "-" << j << k << ".pgm";
 
             // Save the image. If a file format is not passed in, then the file
             // extension is parsed to attempt to determine the file format.
