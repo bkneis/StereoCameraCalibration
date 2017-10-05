@@ -23,6 +23,7 @@
 #include "FlyCapture2.h"
 #include <iostream>
 #include <sstream>
+#include <unistd.h>
 
 using namespace FlyCapture2;
 using namespace std;
@@ -63,7 +64,7 @@ int main(int /*argc*/, char ** /*argv*/)
 {
     PrintBuildInfo();
 
-    const int k_numImages = 50;
+    const int k_numImages = 20;
     Error error;
 
     //
@@ -247,6 +248,7 @@ int main(int /*argc*/, char ** /*argv*/)
             }
 
         }
+        sleep(1);
     }
 
     //
