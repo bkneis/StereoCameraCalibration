@@ -1,5 +1,5 @@
 //=============================================================================
-// Copyright © 2017 FLIR Integrated Imaging Solutions, Inc. All Rights Reserved.
+// Copyright ï¿½ 2017 FLIR Integrated Imaging Solutions, Inc. All Rights Reserved.
 //
 // This software is the confidential and proprietary information of FLIR
 // Integrated Imaging Solutions, Inc. ("Confidential Information"). You
@@ -200,6 +200,14 @@ int main(int /*argc*/, char ** /*argv*/)
     // through the cameras; otherwise, all images will be grabbed from a
     // single camera before grabbing any images from another.
     //
+
+    // So that we do not create a lag between capturing of images from saving the image to a file
+    // we will put an image for each camera in the array, and save those images once each iteration of the
+    // captures has been performed, keeping the camera's in sync
+
+    // Create an image array to hold 1 image per camera
+    Image* images = new Image[numCameras];
+
     for (int j = 0; j < k_numImages; j++)
     {
         for (unsigned int i = 0; i < numCameras; i++)
@@ -214,12 +222,39 @@ int main(int /*argc*/, char ** /*argv*/)
                 cin.ignore();
                 return -1;
             }
-
+            images[i] = image;
             // Display the timestamps of the images grabbed for each camera
             TimeStamp timestamp = image.GetTimeStamp();
             cout << "Camera " << i << " - Frame " << j << " - TimeStamp ["
                  << timestamp.cycleSeconds << " " << timestamp.cycleCount << "]"
                  << endl;
+        }
+        for (unsigned int k = 0; k < numCameras; k++)
+        {
+            // Get the camera information TODO perform this before hand and save to array
+            CameraInfo camInfo;
+            error = pCameras[k].GetCameraInfo(&camInfo);
+            if (error != PGRERROR_OK)
+            {
+                PrintError(error);
+                delete[] pCameras;
+                cout << "Press Enter to exit." << endl;
+                cin.ignore();
+                return -1;
+            }
+
+            ostringstream filename;
+            filename << "data/Calibration" << camInfo.serialNumber << "-" << j << k << ".pgm";
+
+            // Save the image. If a file format is not passed in, then the file
+            // extension is parsed to attempt to determine the file format.
+            error = images[k].Save(filename.str().c_str());
+            if (error != PGRERROR_OK)
+            {
+                PrintError(error);
+                return -1;
+            }
+
         }
     }
 
