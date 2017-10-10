@@ -26,7 +26,7 @@
 #include <unistd.h>
 
 #define OUTPUT_FILE_TYPE ".png"
-#define OUTPUT_FILE_PREFIX "Calibration"
+#define OUTPUT_FILE_PREFIX "Camera"
 #define OUTPUT_FILE_PATH "data/"
 
 using namespace FlyCapture2;
